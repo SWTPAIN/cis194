@@ -1,7 +1,8 @@
 {-# OPTIONS_GHC -Wall #-}
 
 validate :: Integer -> Bool
-validate n = sumDigits (doubleEveryOther (toDigits n)) `mod` 10 == 0
+--validate n = sumDigits (doubleEveryOther (toDigits n)) `mod` 10 == 0
+validate = (0 ==) . (`mod` 10) . sumDigits . doubleEveryOther . toDigits
 sumDigits :: [Integer] -> Integer
 sumDigits []    = 0
 sumDigits [x]  = sumInt (toDigits x)
@@ -14,7 +15,7 @@ doubleEveryOther [x1, x0]   = [x1*2, x0]
 doubleEveryOther (x1:x0:xs) = (x1*2) : (x0) : (doubleEveryOther xs)
 
 toDigits :: Integer -> [Integer]
-toDigits n = reverse (toDigitsRev n)
+toDigits = reverse . toDigitsRev
 
 toDigitsRev :: Integer -> [Integer]
 toDigitsRev n
